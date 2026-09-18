@@ -1,0 +1,20 @@
+{
+  "name": "Waktu Solat Malaysia",
+  "short_name": "Waktu Solat",
+  "description": "Waktu solat rasmi JAKIM, arah kiblat, azan dan kalendar Hijrah untuk seluruh Malaysia",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0B1220",
+  "theme_color": "#0B1220",
+  "lang": "ms-MY",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}ble" }
+  ]
+}

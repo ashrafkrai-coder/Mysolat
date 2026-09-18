@@ -1,0 +1,541 @@
+/* ============ Design Tokens ============ */
+:root {
+  --bg-top: #0b1220;
+  --bg-bottom: #131a2e;
+  --card-bg: rgba(255, 255, 255, 0.08);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --card-bg-solid: #1c2438;
+  --text-primary: #f5f6f8;
+  --text-secondary: rgba(245, 246, 248, 0.62);
+  --text-tertiary: rgba(245, 246, 248, 0.38);
+  --accent-blue: #0a84ff;
+  --accent-gold: #dfbe6a;
+  --accent-green: #30d158;
+  --separator: rgba(255, 255, 255, 0.08);
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overscroll-behavior-y: none;
+}
+
+body {
+  font-family: -apple-system, "SF Pro Text", "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  background: radial-gradient(120% 90% at 50% 0%, var(--bg-bottom) 0%, var(--bg-top) 55%, #070b14 100%);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+#app {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding-top: calc(var(--safe-top) + 14px);
+  padding-bottom: calc(var(--safe-bottom) + 96px);
+  position: relative;
+}
+
+/* ============ Status Bar Clock (mimics iPhone lock screen) ============ */
+.status-clock {
+  text-align: center;
+  padding: 4px 20px 18px;
+}
+.status-clock .big-time {
+  font-size: 64px;
+  font-weight: 600;
+  letter-spacing: -2px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(180deg, #ffffff 0%, #cfd6e6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.status-clock .dates {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.status-clock .date-masihi {
+  font-size: 15px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.status-clock .date-hijri {
+  font-size: 13px;
+  color: var(--accent-gold);
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+/* ============ Location pill ============ */
+.location-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 auto 18px;
+  width: fit-content;
+  padding: 7px 16px;
+  border-radius: 100px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.location-pill svg { width: 13px; height: 13px; opacity: 0.7; }
+.location-pill b { color: var(--text-primary); font-weight: 600; }
+
+/* ============ Next Prayer Hero Card ============ */
+.hero-card {
+  margin: 0 20px 16px;
+  padding: 22px 22px 24px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(155deg, rgba(10,132,255,0.35) 0%, rgba(10,60,130,0.25) 60%, rgba(255,255,255,0.06) 100%);
+  border: 1px solid rgba(10,132,255,0.35);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+.hero-card::after {
+  content: "";
+  position: absolute;
+  top: -60%;
+  right: -30%;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(223,190,106,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.7);
+}
+.hero-name {
+  font-size: 34px;
+  font-weight: 700;
+  margin-top: 4px;
+  letter-spacing: -0.5px;
+}
+.hero-countdown {
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  font-variant-numeric: tabular-nums;
+}
+.hero-countdown b { font-weight: 700; color: #fff; }
+.hero-time {
+  position: absolute;
+  right: 22px;
+  top: 22px;
+  font-size: 28px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+}
+
+/* ============ Prayer List ============ */
+.prayer-list {
+  margin: 0 20px 20px;
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  overflow: hidden;
+}
+.prayer-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--separator);
+  transition: background 0.15s;
+}
+.prayer-row:last-child { border-bottom: none; }
+.prayer-row.active {
+  background: rgba(10,132,255,0.14);
+}
+.prayer-row.passed { opacity: 0.4; }
+.prayer-icon {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  flex-shrink: 0;
+}
+.prayer-icon svg { width: 18px; height: 18px; }
+.prayer-name {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 500;
+}
+.prayer-row.active .prayer-name { font-weight: 700; color: var(--accent-blue); }
+.prayer-time {
+  font-size: 17px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+.prayer-row.passed .prayer-time { color: var(--text-tertiary); }
+.prayer-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  background: rgba(10,132,255,0.15);
+  padding: 3px 8px;
+  border-radius: 100px;
+  margin-left: 4px;
+}
+
+/* ============ Section title ============ */
+.section-title {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-tertiary);
+  margin: 24px 20px 10px;
+}
+
+/* ============ Quick actions grid ============ */
+.quick-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 0 20px 20px;
+}
+.quick-card {
+  padding: 18px 16px;
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.15s;
+}
+.quick-card:active { transform: scale(0.96); background: rgba(255,255,255,0.12); }
+.quick-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quick-icon svg { width: 21px; height: 21px; }
+.quick-icon.blue { background: linear-gradient(135deg,#0a84ff,#0060df); }
+.quick-icon.gold { background: linear-gradient(135deg,#dfbe6a,#b8944a); }
+.quick-icon.green { background: linear-gradient(135deg,#30d158,#1f9e40); }
+.quick-icon.purple { background: linear-gradient(135deg,#bf5af2,#8e3bc4); }
+.quick-title { font-size: 15px; font-weight: 600; }
+.quick-sub { font-size: 12px; color: var(--text-tertiary); margin-top: -6px; }
+
+/* ============ Bottom Tab Bar (iPhone style) ============ */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  padding: 8px 8px calc(8px + var(--safe-bottom));
+  background: rgba(20, 25, 40, 0.72);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  z-index: 100;
+}
+.tab-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 0;
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  font-family: inherit;
+  cursor: pointer;
+}
+.tab-btn svg { width: 24px; height: 24px; }
+.tab-btn span { font-size: 10px; font-weight: 500; }
+.tab-btn.active { color: var(--accent-blue); }
+
+/* ============ Pages ============ */
+.page { display: none; animation: fadeIn 0.25s ease; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: translateY(0);} }
+
+.page-header {
+  padding: 8px 20px 16px;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* ============ Qibla Compass ============ */
+.qibla-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 20px 20px;
+}
+.qibla-compass {
+  width: 280px;
+  height: 280px;
+  position: relative;
+  margin-bottom: 24px;
+}
+.qibla-info-card {
+  width: 100%;
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(20px);
+  padding: 16px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.qibla-info-card .label { font-size: 13px; color: var(--text-tertiary); }
+.qibla-info-card .value { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.qibla-status {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 12px 24px;
+  border-radius: 100px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+.qibla-status.aligned {
+  color: var(--accent-green);
+  border-color: rgba(48,209,88,0.4);
+  background: rgba(48,209,88,0.1);
+  font-weight: 700;
+}
+.qibla-permission-btn {
+  margin-top: 16px;
+  padding: 13px 26px;
+  border-radius: 100px;
+  border: none;
+  background: var(--accent-blue);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ============ Settings page ============ */
+.settings-group {
+  margin: 0 20px 24px;
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+}
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--separator);
+  font-size: 16px;
+  gap: 12px;
+}
+.settings-row:last-child { border-bottom: none; }
+.settings-row .row-label { display: flex; align-items: center; gap: 12px; }
+.settings-row .row-label svg { width: 20px; height: 20px; opacity: 0.8; }
+.settings-row select {
+  background: rgba(255,255,255,0.08);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-size: 14px;
+  font-family: inherit;
+  max-width: 180px;
+}
+
+/* iOS-style toggle switch */
+.switch {
+  position: relative;
+  width: 51px;
+  height: 31px;
+  flex-shrink: 0;
+}
+.switch input { opacity: 0; width: 0; height: 0; }
+.switch .slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: rgba(120,120,128,0.32);
+  border-radius: 100px;
+  transition: 0.25s;
+}
+.switch .slider::before {
+  content: "";
+  position: absolute;
+  width: 27px;
+  height: 27px;
+  left: 2px;
+  top: 2px;
+  background: #fff;
+  border-radius: 50%;
+  transition: 0.25s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.switch input:checked + .slider { background: var(--accent-green); }
+.switch input:checked + .slider::before { transform: translateX(20px); }
+
+.install-banner {
+  margin: 0 20px 20px;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, rgba(10,132,255,0.25), rgba(191,90,242,0.2));
+  border: 1px solid rgba(10,132,255,0.35);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.install-banner .txt { flex: 1; }
+.install-banner .txt b { display: block; font-size: 15px; margin-bottom: 2px; }
+.install-banner .txt span { font-size: 12.5px; color: var(--text-secondary); }
+.install-banner button {
+  padding: 9px 16px;
+  border-radius: 100px;
+  border: none;
+  background: var(--accent-blue);
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.footnote {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  padding: 8px 30px 20px;
+  line-height: 1.5;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(30,35,50,0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 12px 20px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  transition: 0.3s;
+  pointer-events: none;
+  z-index: 200;
+  max-width: 90%;
+  text-align: center;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Zone picker modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  z-index: 300;
+  display: none;
+  align-items: flex-end;
+}
+.modal-overlay.show { display: flex; }
+.modal-sheet {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  max-height: 78vh;
+  background: #1a2032;
+  border-radius: 24px 24px 0 0;
+  padding: 10px 0 calc(20px + var(--safe-bottom));
+  display: flex;
+  flex-direction: column;
+}
+.modal-handle {
+  width: 36px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.25);
+  margin: 6px auto 12px;
+}
+.modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  padding: 0 20px 12px;
+}
+.modal-search {
+  margin: 0 20px 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: #fff;
+  font-size: 15px;
+  font-family: inherit;
+}
+.modal-search::placeholder { color: var(--text-tertiary); }
+.modal-list {
+  overflow-y: auto;
+  padding: 0 20px;
+}
+.zone-item {
+  padding: 12px 4px;
+  border-bottom: 1px solid var(--separator);
+  cursor: pointer;
+}
+.zone-item .z-state { font-size: 15px; font-weight: 600; }
+.zone-item .z-area { font-size: 12.5px; color: var(--text-tertiary); margin-top: 2px; }
+.zone-item .z-code { font-size: 11px; color: var(--accent-blue); font-weight: 700; }
+
+@media (min-width: 481px) {
+  body { background: linear-gradient(155deg, #0b1220, #070b14); }
+}
