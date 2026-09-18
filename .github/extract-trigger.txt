@@ -1,1 +1,1 @@
-Extract MySolat source
+Extract both MySolat sources
